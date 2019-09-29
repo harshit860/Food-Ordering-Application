@@ -6,7 +6,7 @@ const Order = (props) =>{
     let display_dish = props.restraunt[props.count].dish.map((elem,index)=>
         {
             return <div className="col-xl-2 mt-2 ">
-                <button onClick={()=>props.dish(index,props.count)} className="btn btn-success">{elem}</button>
+                <button onClick={()=>props.dish(index,props.count)}  className="btn btn-success">{elem}</button>
             </div>
         })
     return(
