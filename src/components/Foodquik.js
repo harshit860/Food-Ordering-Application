@@ -26,6 +26,7 @@ class Foodquik extends React.Component{
                         Search_name:'',
                         nameflag:false,
                         Finalprice:0,
+                        showcart:false,
                         Search_val:'',
                         Restraunts :[
                             {
@@ -162,6 +163,11 @@ class Foodquik extends React.Component{
             console.log(this.state.Search_name)
         }
 
+        handleclose (){
+            this.setState({
+                showcart: !this.state.showcart
+            })
+        }
 
         order_food=(index,restrauntcount)=>
         {
@@ -170,6 +176,7 @@ class Foodquik extends React.Component{
             console.log(this.state.Restraunts[restrauntcount].dish[index])
 
             this.setState({
+                showcart:true,
                 Order:[...this.state.Order,this.state.Restraunts[restrauntcount].restraunt_name+' '+this.state.Restraunts[restrauntcount].dish[index]],
                 Finalprice : this.state.Finalprice+Number(this.state.Restraunts[restrauntcount].dishcost[index])
             })
@@ -186,10 +193,7 @@ class Foodquik extends React.Component{
         }
         handleSearch = (e)=>
         {
-            this.setState({
-                Search_name:e.target.value
-            })
-            console.log(this.state.Search_name)
+            console.log()
         }
 
         
@@ -208,15 +212,15 @@ class Foodquik extends React.Component{
                 <Router >
                 <div className="col">
                     <div className="col-xl-12">
-                        <AppBar className="bg-white" >
+                        <AppBar className="bg-white shadow" >
                             <div className="row">
-                                <div className="col-xl-3  offset-2 ">
-                                    <h1 className="text-left offset-3 mt-4 text-success display-3">FoodQuik</h1>
+                                <div className="col-xl-3  text-left">
+                                    <h1 className="text-left  mt-4 text-success display-4">FoodQuik</h1>
                                 </div>
-                                <div>
+                                {/* <div>
                                     <InputBase onChange={(e)=>this.handleSearch(e)} name="Search_name" value={this.state.Search_name} className="mt-5 ml-5 border border-success rounded"></InputBase >
                                    
-                                </div>
+                                </div> */}
                                 <div className="text-dark offset-2">
                                   {this.state.nameflag ? ( 
                                      <div>
@@ -225,7 +229,6 @@ class Foodquik extends React.Component{
                                   ):(<div></div>)}
                                 </div>
                             </div>
-                            
                         </AppBar>
                     </div>
                     <div style={{marginTop:"120px"}} className="row ">
@@ -234,10 +237,10 @@ class Foodquik extends React.Component{
                         <Link to="/"><button className="border border-white btn  text-success"><h3>All Restraunts</h3></button></Link>
 
                         </div> 
-                        <div className="col-xl-1">
+                        {/* <div className="col-xl-1">
                         
                         <Link to="/order"><button className="border border-white btn  text-success"><h4>Order</h4></button></Link>
-                        </div> 
+                        </div>  */}
                         <div className="col-xl-2">
                         
                         <Link to="/Top"><button className="border border-white btn  text-success"><h4>Top sellars</h4></button></Link>
@@ -251,8 +254,8 @@ class Foodquik extends React.Component{
                         <div className="col-xl-2">
                         <Link to="/Contact"><button className="border border-white btn  text-success"><h4>Contact Us</h4></button></Link>
                         </div> 
-                        <div className="col-xl-1">
-                        <Link to="/Orders"><button className="border border-white btn  text-warning"><h1>Orders</h1></button></Link>
+                        <div className="col-xl-2">
+                        <button className="border border-white btn  text-warning" onClick={()=>this.handleclose()} ><h1>Food Cart</h1></button>
                         </div> 
                     </div>
                     <div className="col-xl-12" >
@@ -262,8 +265,8 @@ class Foodquik extends React.Component{
                     <Route path="/coupon" exact render={()=> <Coupon />} />
                     <Route path="/Sign" exact render={()=> <Sign signme={this.handleSubmit} change={this.handleChange} name={this.state.Username} mobile={this.state.mobile}/>} />
                     <Route path="/Contact" exact render={()=> <Contact />} />
-                    <Route path="/Orders" exact render={()=> <Orders final={this.state.Finalprice} list_of_orders={this.state.Order} />} />
-
+                    <Route path="/Orders" exact render={()=> <Orders showcart={this.state.showcart} close={()=>this.handleclose()} final={this.state.Finalprice} list_of_orders={this.state.Order} />} />
+                    <Orders showcart={this.state.showcart} close={()=>this.handleclose()} final={this.state.Finalprice} list_of_orders={this.state.Order} />
                             
                     </div>
                 </div>
