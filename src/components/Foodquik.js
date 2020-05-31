@@ -204,7 +204,7 @@ class Foodquik extends React.Component {
                         <AppBar className="bg-white shadow" >
                             <div className="row">
                                 <div className="col-xl-3  text-left">
-                                    <h1 className="text-left  mt-4 text-success display-4">FoodQuik</h1>
+                                    <h1 className="text-left  mt-4 text-success display-4">Food-Quik-React</h1>
                                 </div>
                                 <div className="text-dark offset-2">
                                     {this.state.nameflag ? (
